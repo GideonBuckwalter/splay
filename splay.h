@@ -25,46 +25,20 @@ typedef struct
     Node* right;
 } Node;
 
-// Node constructor.
-Node* new_node(Key key, Value value, Node* parent, Node* left, Node* right);
+typedef struct
+{
+    Node* root;
+} SplayTree;
 
-// These functions check if a node is able to perform
-// a certain rotation.
-bool can_rotate_up(Node* node);
-bool can_zig_zig(Node* node);
-bool can_zig_zag(Node* node);
-
-// Rotates 'node' and 'node's parent either left or right;
-// whichever will move 'node' up.
-void rotate_up(Node* node);
-
-// Performs 'zig-zig' rotation on 'node', its parent, and
-// its grandparent.
-void zig_zig(Node* node);
-
-// Performs 'zig-zag' rotation on 'node', its parent, and
-// its grandparent.
-void zig_zag(Node* node);
-
+// Frees memory used by splay tree.
+void destroy_splay_tree(SplayTree* tree);
 
 // Inserts a key-value pair into the tree.
-void set(const Key key, const Value value, Node* root);
+void set(const Key key, const Value value, SplayTree* tree);
 
 // Removes a key-value pair from the tree.
-void remove(const Key key, Node* root);
+void remove(const Key key, SplayTree* tree);
 
 // Returns a mutable pointer to the object stored at 'key'.
 // If 'key' is not in the tree, returns NULL.
-Value get(const Key key, Node* root);
-
-
-//// Helper Functions ////
-
-// Recursively finds the node but doesn't splay it to
-// the root.
-Node* _locate(const Key key, Node* root);
-
-// Repeatedly rotates the node up until it is the
-// root of the tree.
-void _splay(Node* node, Node* root);
-
+Value get(const Key key, SplayTree* tree);
